@@ -1,0 +1,61 @@
+.sfm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.sfm-modal {
+  width: 450px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.sfm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sfm-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.sfm-label {
+  margin-top: 18px;
+  font-weight: 600;
+  display: block;
+}
+
+.sfm-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d7d7d7;
+  margin-top: 6px;
+}
+
+.sfm-btn {
+  width: 100%;
+  background: #111;
+  padding: 12px;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+@media (max-width: 520px) {
+  .sfm-modal {
+    width: 90%;
+  }
+}

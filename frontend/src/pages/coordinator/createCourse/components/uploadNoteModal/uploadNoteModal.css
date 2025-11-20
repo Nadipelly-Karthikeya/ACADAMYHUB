@@ -1,0 +1,76 @@
+/* Modal Background */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal Card */
+.modal-card {
+  width: 420px;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Labels & Inputs */
+.label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.file-input {
+  margin-top: 5px;
+}
+
+/* Upload Button */
+.upload-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background: #222;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 500px) {
+  .modal-card {
+    width: 90%;
+    padding: 20px;
+  }
+}

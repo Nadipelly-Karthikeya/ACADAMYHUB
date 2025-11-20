@@ -1,0 +1,50 @@
+.sl-container {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.sl-card {
+  width: 400px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+}
+
+.sl-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.sl-label {
+  font-weight: 600;
+  margin-top: 15px;
+  display: block;
+}
+
+.sl-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+.sl-btn {
+  width: 100%;
+  padding: 12px;
+  background: #0060ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.sl-register {
+  text-align: center;
+  margin-top: 14px;
+}

@@ -1,0 +1,835 @@
+{
+  "info": {
+    "name": "Student Admin Auth API - Full",
+    "_postman_id": "00000000-0000-0000-0000-000000000000",
+    "description": "Collection for all visible routes in the student/admin auth API. Update `baseUrl` and token variables as needed.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "adminAccessToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "studentAccessToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refreshToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Generic Auth (auth.routes.js)",
+      "item": [
+        {
+          "name": "POST /api/v1/auth/student/register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@example.com\",\n  \"password\": \"StudentPass123!\",\n  \"name\": \"Test Student\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/student/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "student", "register"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/auth/admin/register (protected, admin only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newadmin@example.com\",\n  \"password\": \"AdminPass123!\",\n  \"name\": \"New Admin\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "register"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/auth/login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "let jsonData;",
+                  "try {",
+                  "  jsonData = pm.response.json();",
+                  "} catch (e) {",
+                  "  jsonData = null;",
+                  "}",
+                  "",
+                  "if (jsonData) {",
+                  "  if (jsonData.accessToken) {",
+                  "    pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);",
+                  "  }",
+                  "  if (jsonData.refreshToken) {",
+                  "    pm.collectionVariables.set(\"refreshToken\", jsonData.refreshToken);",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /api/v1/auth/refresh-token",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/refresh-token",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "refresh-token"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "let jsonData;",
+                  "try {",
+                  "  jsonData = pm.response.json();",
+                  "} catch (e) {",
+                  "  jsonData = null;",
+                  "}",
+                  "",
+                  "if (jsonData) {",
+                  "  if (jsonData.accessToken) {",
+                  "    pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);",
+                  "  }",
+                  "  if (jsonData.refreshToken) {",
+                  "    pm.collectionVariables.set(\"refreshToken\", jsonData.refreshToken);",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /api/v1/auth/me (auth required)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Auth (admin.routes.js)",
+      "item": [
+        {
+          "name": "POST /api/v1/auth/admin/register (admin only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newadmin@example.com\",\n  \"password\": \"AdminPass123!\",\n  \"name\": \"New Admin\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "register"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/auth/admin/login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"AdminPass123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "let jsonData;",
+                  "try {",
+                  "  jsonData = pm.response.json();",
+                  "} catch (e) {",
+                  "  jsonData = null;",
+                  "}",
+                  "",
+                  "if (jsonData && jsonData.accessToken) {",
+                  "  pm.collectionVariables.set(\"adminAccessToken\", jsonData.accessToken);",
+                  "}",
+                  "",
+                  "// Optionally sync generic accessToken from admin login",
+                  "if (jsonData && jsonData.accessToken) {",
+                  "  pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /api/v1/auth/admin/forgot-password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/forgot-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "forgot-password"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/auth/admin/set-password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"RESET_TOKEN_FROM_EMAIL\",\n  \"newPassword\": \"NewAdminPass123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/set-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "set-password"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/auth/admin/change-password (auth required)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"AdminPass123!\",\n  \"newPassword\": \"NewAdminPass456!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/change-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "change-password"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/auth/admin/verify-email",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"EMAIL_VERIFICATION_TOKEN\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/verify-email",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "verify-email"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Course & Semester Management (admin.routes.js)",
+      "item": [
+        {
+          "name": "POST /api/v1/auth/admin/courses (admin only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"courseName\": \"CS101\",\n  \"students\": []\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/courses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "courses"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/auth/admin/courses (admin only)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/courses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "courses"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/auth/admin/semesters (admin only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Fall 2025\",\n  \"startDate\": \"2025-09-01\",\n  \"endDate\": \"2025-12-20\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/semesters",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "semesters"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/auth/admin/semesters (admin only)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/semesters",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "semesters"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/auth/admin/dashboard/overview (admin only)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/dashboard/overview",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "dashboard", "overview"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/auth/admin/assignments/submissions (all submissions, admin only)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/assignments/submissions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "assignments", "submissions"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/auth/admin/assignments/:assignmentId/submissions (admin only)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/admin/assignments/{{assignmentId}}/submissions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "admin", "assignments", "{{assignmentId}}", "submissions"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Course Content (GridFS)",
+      "item": [
+        {
+          "name": "POST /api/v1/courses/:courseId/notes (upload note PDF)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "Intro to Algebra", "type": "text" },
+                { "key": "unit", "value": "Unit 1", "type": "text" },
+                { "key": "file", "type": "file", "src": [] }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/{{courseId}}/notes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "courses", "{{courseId}}", "notes"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/courses/:courseId/notes (list notes)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/{{courseId}}/notes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "courses", "{{courseId}}", "notes"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/courses/:courseId/notes/:noteId/file (download note PDF)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/{{courseId}}/notes/{{noteId}}/file",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "courses", "{{courseId}}", "notes", "{{noteId}}", "file"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/courses/:courseId/assignments (upload assignment PDF)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "Assignment 1", "type": "text" },
+                { "key": "description", "value": "Solve problems 1-10", "type": "text" },
+                { "key": "dueDate", "value": "2025-11-30T23:59:59Z", "type": "text" },
+                { "key": "attachment", "type": "file", "src": [] }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/{{courseId}}/assignments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "courses", "{{courseId}}", "assignments"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/courses/:courseId/assignments (list assignments)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/{{courseId}}/assignments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "courses", "{{courseId}}", "assignments"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/courses/:courseId/assignments/:assignmentId/attachment (download assignment PDF)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/{{courseId}}/assignments/{{assignmentId}}/attachment",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "courses", "{{courseId}}", "assignments", "{{assignmentId}}", "attachment"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/courses/:courseId/exams (create exam)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"midterm\",\n  \"instructions\": \"Closed book, units 1-3\",\n  \"dueDate\": \"2025-12-15T09:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/{{courseId}}/exams",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "courses", "{{courseId}}", "exams"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/courses/:courseId/exams (list exams)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/{{courseId}}/exams",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "courses", "{{courseId}}", "exams"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student Auth (student.routes.js)",
+      "item": [
+        {
+          "name": "POST /api/v1/auth/student/register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@example.com\",\n  \"password\": \"StudentPass123!\",\n  \"name\": \"Test Student\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/student/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "student", "register"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/auth/student/login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@example.com\",\n  \"password\": \"StudentPass123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/student/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "student", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "let jsonData;",
+                  "try {",
+                  "  jsonData = pm.response.json();",
+                  "} catch (e) {",
+                  "  jsonData = null;",
+                  "}",
+                  "",
+                  "if (jsonData && jsonData.accessToken) {",
+                  "  pm.collectionVariables.set(\"studentAccessToken\", jsonData.accessToken);",
+                  "}",
+                  "",
+                  "// Optionally sync generic accessToken from student login",
+                  "if (jsonData && jsonData.accessToken) {",
+                  "  pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /api/v1/auth/student/forgot-password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/student/forgot-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "student", "forgot-password"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/auth/student/set-password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"RESET_TOKEN_FROM_EMAIL\",\n  \"newPassword\": \"NewStudentPass123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/student/set-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "student", "set-password"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/auth/student/change-password (auth required)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{studentAccessToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"StudentPass123!\",\n  \"newPassword\": \"NewStudentPass456!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/student/change-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "student", "change-password"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/auth/student/verify-email",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"EMAIL_VERIFICATION_TOKEN\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/student/verify-email",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "student", "verify-email"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student Courses (studentCourse.routes.js)",
+      "item": [
+        {
+          "name": "GET /api/v1/student/courses (list my courses)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentAccessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/student/courses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "student", "courses"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/student/courses/overview (my overview)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentAccessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/student/courses/overview",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "student", "courses", "overview"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/student/courses/:courseId (my course details)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentAccessToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/student/courses/{{courseId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "student", "courses", "{{courseId}}"]
+            }
+          }
+        },
+        {
+          "name": "POST /api/v1/student/courses/:courseId/assignments/:assignmentId/submissions (submit assignment PDF)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{studentAccessToken}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": [] }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/student/courses/{{courseId}}/assignments/{{assignmentId}}/submissions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "student", "courses", "{{courseId}}", "assignments", "{{assignmentId}}", "submissions"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Files Upload (files.upload.routes.js)",
+      "item": [
+        {
+          "name": "POST /api/v1/files/upload (generic admin PDF upload)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminAccessToken}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": [] }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/files/upload",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "files", "upload"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

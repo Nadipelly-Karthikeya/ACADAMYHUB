@@ -1,0 +1,84 @@
+.cl-container {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.cl-back {
+  position: absolute;
+  left: 40px;
+  top: 30px;
+  text-decoration: none;
+  color: #555;
+}
+
+.cl-card {
+  width: 400px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.cl-icon {
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.cl-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.cl-sub {
+  text-align: center;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.cl-label {
+  font-weight: 600;
+  margin-top: 15px;
+  display: block;
+}
+
+.cl-input-box {
+  display: flex;
+  align-items: center;
+  background: #f2f5fc;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+.cl-input-box input {
+  border: none;
+  outline: none;
+  flex: 1;
+  background: transparent;
+  padding-left: 8px;
+}
+
+.cl-btn {
+  width: 100%;
+  background: #005cff;
+  color: white;
+  border: none;
+  padding: 12px;
+  margin-top: 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cl-register {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.cl-register a {
+  color: #005cff;
+  text-decoration: none;
+}

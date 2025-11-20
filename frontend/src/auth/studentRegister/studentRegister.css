@@ -1,0 +1,45 @@
+.sr-container {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.sr-card {
+  width: 420px;
+  background: #fff;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 8px 35px rgba(0, 0, 0, 0.12);
+}
+
+.sr-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.sr-label {
+  font-weight: 600;
+  margin-top: 12px;
+  display: block;
+}
+
+.sr-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.sr-btn {
+  width: 100%;
+  padding: 12px;
+  background: #0060ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}

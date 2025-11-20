@@ -1,0 +1,81 @@
+/* Container */
+.cr-container {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+}
+
+/* Card wrapper */
+.cr-card {
+  width: 400px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: left;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Title */
+.cr-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Label */
+.cr-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Input fields */
+.cr-input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #d3d3d3;
+  background: #f3f6ff;
+  outline: none;
+  font-size: 15px;
+  margin-bottom: 18px;
+  transition: border 0.2s ease;
+}
+
+.cr-input:focus {
+  border-color: #005cff;
+}
+
+/* Register Button */
+.cr-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background: #005cff;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.cr-btn:hover {
+  background: #0048c7;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .cr-card {
+    width: 90%;
+    padding: 22px;
+  }
+
+  .cr-input {
+    padding: 12px;
+  }
+}

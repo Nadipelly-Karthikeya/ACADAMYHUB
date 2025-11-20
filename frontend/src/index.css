@@ -1,0 +1,12 @@
+body {
+  max-width: 1300px;
+  margin: auto;
+}
+
+button {
+  padding: 5px;
+  background: #dec2fa;
+  border: none;
+  border-radius: 3px;
+  margin-left: 3px;
+}

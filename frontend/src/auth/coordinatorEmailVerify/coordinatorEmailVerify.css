@@ -1,0 +1,74 @@
+/* Container */
+.cev-container {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+}
+
+/* Card */
+.cev-card {
+  width: 400px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+/* Title */
+.cev-card h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Description */
+.cev-card p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* OTP Input */
+.cev-input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #d3d3d3;
+  background: #f3f6ff;
+  outline: none;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+/* Button */
+.cev-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 22px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background: #005cff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cev-btn:hover {
+  background: #0048c7;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .cev-card {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .cev-input {
+    padding: 12px;
+  }
+}

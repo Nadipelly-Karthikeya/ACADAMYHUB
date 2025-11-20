@@ -1,0 +1,74 @@
+/* Container */
+.sev-container {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+}
+
+/* Card */
+.sev-card {
+  width: 400px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+/* Title */
+.sev-card h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Subtitle text */
+.sev-card p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Input field */
+.sev-input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #d3d3d3;
+  background: #f3f6ff;
+  outline: none;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+/* Button */
+.sev-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 22px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background: #005cff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sev-btn:hover {
+  background: #0048c7;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .sev-card {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .sev-input {
+    padding: 12px;
+  }
+}
